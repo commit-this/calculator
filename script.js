@@ -21,3 +21,10 @@ function operate(a, b, operator) {
          : operator === "/" ? divide(a, b)
          : "Error";
 }
+
+function numButtonClicked(e) {
+    num = e.target.id;
+}
+
+const numButtons = document.querySelectorAll(".num-btn");
+numButtons.forEach(numButton => numButton.addEventListener(click, numButtonClicked));
