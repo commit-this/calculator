@@ -22,19 +22,33 @@ function operate(a, b, operator) {
          : "Error";
 }
 
-function numButtonClicked(e) {
+function onNumClick(e) {
     num = e.target.id;
-    display.textContent += num;
+    if (display.textContent === "0") {
+        display.textContent = num;
+    } else {
+        display.textContent += num;    
+    }
+}
+
+function onSignClick(e) {
+    let displayValue;
+    if (display.textContent === "0") return;
+    displayValue = Number(display.textContent) * -1;
+    display.textContent = displayValue.toString();
 }
 
 function clearDisplay(e) {
-    clearButton.textContent = "0";
+    display.textContent = "0";
 }
 
 const display = document.querySelector(".display");
+
+const signButton = document.querySelector("#sign");
+signButton.addEventListener("click", onSignClick)
 
 const clearButton = document.querySelector("#clear");
 clearButton.addEventListener("click", clearDisplay);
 
 const numButtons = document.querySelectorAll(".num-btn");
-numButtons.forEach(numButton => numButton.addEventListener("click", numButtonClicked));
+numButtons.forEach(numButton => numButton.addEventListener("click", onNumClick));
