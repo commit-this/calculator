@@ -24,7 +24,7 @@ function operate(a, b, operator) {
 
 function onNumClick(e) {
     num = e.target.id;
-    if (display.textContent === "0") {
+    if (display.textContent.trim() === "0") {
         display.textContent = num;
     } else {
         display.textContent += num;    
@@ -50,6 +50,11 @@ function onDecimalClick(e) {
     display.textContent += ".";
 }
 
+function onEqualsClick(e) {
+    let answer = operate(operand1, operand2, operator);
+    display.textContent = answer.toString();
+}
+
 let operand1 = null;
 let operand2 = null;
 let operator = null;
@@ -73,3 +78,6 @@ clearButton.addEventListener("click", clearDisplay);
 
 const numButtons = document.querySelectorAll(".num");
 numButtons.forEach(numButton => numButton.addEventListener("click", onNumClick));
+
+const equalsButton = document.querySelector("#equals");
+equalsButton.addEventListener("click", onEqualsClick);
