@@ -17,17 +17,26 @@ function divide(a, b) {
 function operate(a, b, operator) {
     return operator === "+" ? add(a, b)
          : operator === "-" ? subtract(a, b)
-         : operator === "*" ? multiply(a, b)
+         : operator === "x" ? multiply(a, b)
          : operator === "/" ? divide(a, b)
          : "Error";
 }
 
 function onNumClick(e) {
     num = e.target.id;
-    if (display.textContent.trim() === "0") {
-        display.textContent = num;
+    if (operator === null) {
+        if (display.textContent.trim() === "0") {
+            display.textContent = num;
+        } else {
+            display.textContent += num;    
+        }
     } else {
-        display.textContent += num;    
+        let firstNumPressed = false;
+        if (!firstNumPressed) {
+            display.textContent = num;
+        } else {
+            display.textContent += num;
+        }
     }
 }
 
@@ -43,6 +52,7 @@ function clearDisplay(e) {
     display.textContent = "0";
     operand1 = null;
     operand2 = null;
+    operator = null;
 }
 
 function onDecimalClick(e) {
@@ -51,6 +61,7 @@ function onDecimalClick(e) {
 }
 
 function onEqualsClick(e) {
+    operand2 = Number(display.textContent);
     let answer = operate(operand1, operand2, operator);
     display.textContent = answer.toString();
 }
