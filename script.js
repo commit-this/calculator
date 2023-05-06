@@ -18,12 +18,13 @@ function operate(a, b, operator) {
     return operator === "+" ? add(a, b)
          : operator === "-" ? subtract(a, b)
          : operator === "x" ? multiply(a, b)
-         : operator === "/" ? divide(a, b)
+         : operator === "÷" ? divide(a, b)
          : "Error";
 }
 
 function onNumClick(e) {
     num = e.target.id;
+    
     if (operator === null) {
         if (display.textContent.trim() === "0") {
             display.textContent = num;
@@ -31,9 +32,9 @@ function onNumClick(e) {
             display.textContent += num;    
         }
     } else {
-        let firstNumPressed = false;
         if (!firstNumPressed) {
             display.textContent = num;
+            firstNumPressed = true;
         } else {
             display.textContent += num;
         }
@@ -64,11 +65,13 @@ function onEqualsClick(e) {
     operand2 = Number(display.textContent);
     let answer = operate(operand1, operand2, operator);
     display.textContent = answer.toString();
+    firstNumPressed = false;
 }
 
 let operand1 = null;
 let operand2 = null;
 let operator = null;
+let firstNumPressed = false;
 
 const display = document.querySelector(".display");
 
