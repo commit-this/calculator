@@ -11,6 +11,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) {
+        return "Cannot divide by zero";
+    }
     return a / b;
 }
 
@@ -25,7 +28,7 @@ function operate(a, b, operator) {
 function onNumClick(e) {
     num = e.target.id;
     
-    if (operator === null) {
+    if (currentOperator === null) {
         if (display.textContent.trim() === "0") {
             display.textContent = num;
         } else {
@@ -53,7 +56,8 @@ function clearDisplay(e) {
     display.textContent = "0";
     operand1 = null;
     operand2 = null;
-    operator = null;
+    currentOperator = null;
+    firstNumPressed = false;
 }
 
 function onDecimalClick(e) {
@@ -63,22 +67,29 @@ function onDecimalClick(e) {
 
 function onEqualsClick(e) {
     operand2 = Number(display.textContent);
-    let answer = operate(operand1, operand2, operator);
+    let answer = operate(operand1, operand2, currentOperator);
     display.textContent = answer.toString();
     firstNumPressed = false;
 }
 
 let operand1 = null;
 let operand2 = null;
-let operator = null;
+let currentOperator = null;
 let firstNumPressed = false;
 
 const display = document.querySelector(".display");
 
 const operatorButtons = document.querySelectorAll(".operator");
 operatorButtons.forEach(operatorButton => operatorButton.addEventListener("click", (e) => {
-    operand1 = Number(display.textContent);
-    operator = e.target.textContent;
+    if (currentOperator !== null) {
+        operand2 = Number(display.textContent);
+        let answer = operate(operand1, operand2, currentOperator);
+        display.textContent = answer.toString();
+        firstNumPressed = false;
+    } else {
+        operand1 = Number(display.textContent);
+        currentOperator = e.target.textContent;
+    }
 }));
 
 const signButton = document.querySelector("#sign");
