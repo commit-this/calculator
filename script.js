@@ -85,11 +85,12 @@ operatorButtons.forEach(operatorButton => operatorButton.addEventListener("click
         operand2 = Number(display.textContent);
         let answer = operate(operand1, operand2, currentOperator);
         display.textContent = answer.toString();
+        operand1 = answer;
         firstNumPressed = false;
     } else {
         operand1 = Number(display.textContent);
-        currentOperator = e.target.textContent;
     }
+    currentOperator = e.target.textContent;
 }));
 
 const signButton = document.querySelector("#sign");
